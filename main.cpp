@@ -39,15 +39,15 @@ int main() {
         choice = main_menu();
         switch (choice) {
             case 1:
-                cout << "Add a goat selected." << endl;
+                add_goat(trip, names, colors);
                 break;
-            
+
             case 2:
                 cout << "Delete a goat selected." << endl;
                 break;
-            
+
             case 3:
-                cout << "List goats selected." << endl;
+                display_trip(trip);
                 break;
 
             case 4:
@@ -62,9 +62,9 @@ int main() {
     return 0;
 }
 
+// displays the main menu and validates the user's choice
 // arguments: none
 // returns: user's valid menu choice (1-4)
-// displays the main menu and validates the user's choice
 int main_menu() {
     int choice;
 
@@ -85,4 +85,43 @@ int main_menu() {
     }
 
     return choice;
+}
+
+// creates a random Goat and adds it to the trip
+// arguments: Goat list, names array, colors array
+// returns: none
+void add_goat(list<Goat> &trip, string names[], string colors[]) {
+    string name = names[rand() % SZ_NAMES];
+    string color = colors[rand() % SZ_COLORS];
+    int age = rand() % (MAX_AGE + 1);
+
+    Goat newGoat(name, age, color);
+
+    trip.push_back(newGoat);
+
+    cout << "Goat added: " << name << " ("
+         << age << ", " << color << ")" << endl;
+}
+
+// displays all goats in the trip with their numbers
+// arguments: Goat list
+// returns: none
+void display_trip(list<Goat> trip) {
+    if (trip.empty()) {
+        cout << "The trip is empty." << endl;
+        return;
+    }
+
+    int count = 1;
+
+    cout << "\nCurrent goats in the trip:\n";
+
+    for (auto it = trip.begin(); it != trip.end(); it++) {
+        cout << "[" << count << "] "
+             << it->get_name() << " ("
+             << it->get_age() << ", "
+             << it->get_color() << ")" << endl;
+
+        count++;
+    }
 }
