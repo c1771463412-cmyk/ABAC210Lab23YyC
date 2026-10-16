@@ -11,7 +11,10 @@ private:
     int age;
     string color;
 public: 
-    Goat()                          { name = ""; age = 0; color = ""; }
+    Goat() {
+        name = ""; age = 0; color = "";
+    }
+
     // write three more constructors
     // Constructor with name only
     Goat(string n) {
@@ -43,6 +46,10 @@ public:
     string get_color() const        { return color; }
 
     // write overloaded < operator for the std::list
+    // compares two goats by name
+    bool operator<(const Goat &other) const {
+        return name < other.name;
+    }
 };
 
 #endif

@@ -51,7 +51,7 @@ int main() {
                 break;
 
             case 4:
-                cout << "Quit selected." << endl;
+                cout << "Quit selected.\nGoodbye!" << endl;
                 break;
         }
 
@@ -106,8 +106,9 @@ void add_goat(list<Goat> &trip, string names[], string colors[]) {
 // asks the user to select a valid goat number
 // arguments: number of goats in the trip
 // returns: the selected goat number
-int select_goat(int size) {
+int select_goat(list<Goat> trip) {
     int choice;
+    int size = trip.size();
 
     cout << "Enter goat number to delete: ";
     cin >> choice;
@@ -135,7 +136,7 @@ void delete_goat(list<Goat> &trip) {
 
     display_trip(trip);
 
-    int choice = select_goat(trip.size());
+    int choice = select_goat(trip);
 
     auto it = trip.begin();
 
@@ -143,9 +144,11 @@ void delete_goat(list<Goat> &trip) {
         it++;
     }
 
-    trip.erase(it);
+    cout << "Goat deleted: " << it->get_name() << " ("
+         << it->get_age() << ", "
+         << it->get_color() << ")" << endl;
 
-    cout << "Goat deleted successfully." << endl;
+    trip.erase(it);
 }
 
 // displays all goats in the trip with their numbers
