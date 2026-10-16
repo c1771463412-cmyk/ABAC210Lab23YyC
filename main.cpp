@@ -1,3 +1,5 @@
+// COMSC-210-5293 | Lab 23 | Yuyi Chen
+
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -17,6 +19,9 @@ int main() {
     srand(time(0));
     bool again;
 
+    list<Goat> trip;
+    int choice;
+
     // read & populate arrays for names and colors
     ifstream fin("names.txt");
     string names[SZ_NAMES];
@@ -29,9 +34,55 @@ int main() {
     while (fin1 >> colors[i++]);
     fin1.close();
 
+    // main menu loop
+    do {
+        choice = main_menu();
+        switch (choice) {
+            case 1:
+                cout << "Add a goat selected." << endl;
+                break;
+            
+            case 2:
+                cout << "Delete a goat selected." << endl;
+                break;
+            
+            case 3:
+                cout << "List goats selected." << endl;
+                break;
 
+            case 4:
+                cout << "Quit selected." << endl;
+                break;
+        }
+
+        again = (choice != 4);
+    } while (again);
 
 
     return 0;
 }
 
+// arguments: none
+// returns: user's valid menu choice (1-4)
+// displays the main menu and validates the user's choice
+int main_menu() {
+    int choice;
+
+    cout << "\n*** GOAT MANAGER 3001 ***" << endl;
+    cout << "[1] Add a goat" << endl;
+    cout << "[2] Delete a goat" << endl;
+    cout << "[3] List goats" << endl;
+    cout << "[4] Quit" << endl;
+    cout << "Choice --> ";
+    cin >> choice;
+
+    while (cin.fail() || choice < 1 || choice > 4) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+
+        cout << "Invalid choice. Please enter 1-4: ";
+        cin >> choice;
+    }
+
+    return choice;
+}
